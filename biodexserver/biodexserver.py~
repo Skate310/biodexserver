@@ -18,6 +18,7 @@ class EntryHandler(tornado.web.RequestHandler):
         img.save(f_name)
         #print(self.request.body)
         name = self.get_argument('name', None)
+        name = name.lower()
         latitude = self.get_argument('latitude', 0)
         longitude = self.get_argument('longitude', 0)
         description = self.get_argument('description', None)
@@ -78,12 +79,20 @@ class GetImageInfoHandler(tornado.web.RequestHandler):
         
 class GetImageInfoNameHandler(tornado.web.RequestHandler):
     def get(self, name):
-        print(name)
         db = sqlite3.connect('biodex.db')
         c = db.cursor()
         c.execute("SELECT * FROM picture_table WHERE name = ?", (name,))
         self.write(str(c.fetchone()))
         db.close()    
+
+class GetAll(tornado.web.RequestHandler):
+    def get(self):
+        db = sqlite3.connect('biodex.db')
+        c = db.cursor()
+        c.execute("SELECT * FROM picture_table")
+        for row in c:
+            self.write(str(row))
+        db.close()
 
 def main():
     return tornado.web.Application([
