@@ -110,11 +110,6 @@ if __name__ == "__main__":
     picture_table = 'picture_table'
     id_column = 'id_column'
     name_column = 'name_column'
-    db = sqlite3.connect('biodex')
-    c = db.cursor()  
-# Create table (w/ columns)
-    c.execute('''CREATE TABLE IF NOT EXISTS picture_table
-                (id_column integer PRIMARY KEY, name text, file_path text, latitude real, longitude real)''') 
     column_type1 = 'INTEGER'
     name_column = 'name_column'
     column_type2 = 'TEXT'

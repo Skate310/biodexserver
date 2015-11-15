@@ -85,7 +85,7 @@ class GetImageInfoNameHandler(tornado.web.RequestHandler):
         self.write(str(c.fetchone()))
         db.close()    
 
-class GetAll(tornado.web.RequestHandler):
+class GetAllHandler(tornado.web.RequestHandler):
     def get(self):
         db = sqlite3.connect('biodex.db')
         c = db.cursor()
@@ -102,6 +102,7 @@ def main():
         (r"/picturerange/([-.0-9][^a-z\s]+)/([-.0-9][^a-z\s]+)/([.0-9][^a-z\s]+)", PictureRangeHandler),
         (r"/getimageinfo/([0-9]+)", GetImageInfoHandler),
         (r"/getimageinfoname/([\w].+)", GetImageInfoNameHandler),
+        (r"/getall", GetAllHandler),
     ])
 
 if __name__ == "__main__":
